@@ -24,17 +24,17 @@ namespace dotnet_rpg.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task< ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetAll()
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> GetAll()
         {
 
-            return Ok( await _characterService.GetAll());
+            return Ok(await _characterService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public async Task< ActionResult<ServiceResponse<GetCharacterDto>>> GetCharacterById(int id)
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetCharacterById(int id)
         {
 
-            return Ok( await _characterService.GetCharacterById(id));
+            return Ok(await _characterService.GetCharacterById(id));
         }
 
         [HttpPost]
@@ -45,8 +45,8 @@ namespace dotnet_rpg.Controllers
         }
 
         [HttpPut]
-        
-        public async Task<ActionResult<GetCharacterDto>>UpdatedCharacter(UpdateCharacterDto updateCharacter)
+
+        public async Task<ActionResult<GetCharacterDto>> UpdatedCharacter(UpdateCharacterDto updateCharacter)
         {
             if (!ModelState.IsValid)
             {
@@ -60,5 +60,20 @@ namespace dotnet_rpg.Controllers
         }
 
 
+
+        [HttpDelete("{id}")]
+        
+        public async Task<ActionResult<List<GetCharacterDto>>>DeleteCharacter(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var response = await _characterService.DeleteCharacter(id);
+            if (response.Data is null)
+                return NotFound(response);
+
+            return Ok(response);
+        }
     }
 }
