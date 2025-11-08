@@ -1,4 +1,6 @@
 
+using dotnet_rpg.Services.CharacterServices;
+
 namespace dotnet_rpg
 {
     public class Program
@@ -13,6 +15,7 @@ namespace dotnet_rpg
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<ICharacterService, CharacterService>();
 
             var app = builder.Build();
 
