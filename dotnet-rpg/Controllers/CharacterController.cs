@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using dotnet_rpg.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -25,12 +26,19 @@ namespace dotnet_rpg.Controllers
 
             return Ok(characters);
         }
-        
+
         [HttpGet("{id}")]
         public ActionResult<Character> GetAll(int id)
         {
-            
-            return Ok(characters.FirstOrDefault(C=>C.id == id));
+
+            return Ok(characters.FirstOrDefault(C => C.id == id));
+        }
+
+        [HttpPost]
+        public ActionResult<Character> AddCharacter(Character newCharacter)
+        {
+            characters.Add(newCharacter);
+            return Ok(characters);
         }
         
     }
