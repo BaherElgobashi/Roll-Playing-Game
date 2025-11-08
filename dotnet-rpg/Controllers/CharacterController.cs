@@ -28,7 +28,7 @@ namespace dotnet_rpg.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Character> GetAll(int id)
+        public ActionResult<Character> GetCharacterById(int id)
         {
 
             return Ok(characters.FirstOrDefault(C => C.id == id));
