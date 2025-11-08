@@ -12,7 +12,8 @@ namespace dotnet_rpg.AutoMapperProfile
     {
         public AutoMapperProfile()
         {
-            CreateMap<Character,GetCharacterDto>().ReverseMap();
+            CreateMap<Character, GetCharacterDto>().ReverseMap();
+            CreateMap<Character,AddCharacterDto>().ReverseMap();
             
         }
     }
