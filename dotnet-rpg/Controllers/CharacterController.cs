@@ -48,7 +48,15 @@ namespace dotnet_rpg.Controllers
         
         public async Task<ActionResult<GetCharacterDto>>UpdatedCharacter(UpdateCharacterDto updateCharacter)
         {
-            return Ok(await _characterService.UpdateCharacter(updateCharacter));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            var response = await _characterService.UpdateCharacter(updateCharacter);
+            if (response.Data is null)
+                return NotFound(response);
+
+            return Ok(response);
         }
 
 

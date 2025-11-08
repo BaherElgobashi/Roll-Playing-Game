@@ -54,14 +54,28 @@ namespace dotnet_rpg.Services.CharacterServices
         public async Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
         {
             var ServiceResponse = new ServiceResponse<GetCharacterDto>();
-            var character = characters.FirstOrDefault(c => c.id == updatedCharacter.id);
-            character.name = updatedCharacter.name;
-            character.intelligence = updatedCharacter.intelligence;
-            character.hitPoints = updatedCharacter.hitPoints;
-            character.strength = updatedCharacter.strength;
-            character.defense = updatedCharacter.defense;
-            character.Class = updatedCharacter.Class;
-            ServiceResponse.Data = _mapper.Map<GetCharacterDto>(character);
+
+            try
+            {
+                var character = characters.FirstOrDefault(c => c.id == updatedCharacter.id);
+                if(character is null)
+                {
+                    throw new Exception($"Character with Id ({updatedCharacter.id}) is not found.");
+                }
+                character.name = updatedCharacter.name;
+                character.intelligence = updatedCharacter.intelligence;
+                character.hitPoints = updatedCharacter.hitPoints;
+                character.strength = updatedCharacter.strength;
+                character.defense = updatedCharacter.defense;
+                character.Class = updatedCharacter.Class;
+                ServiceResponse.Data = _mapper.Map<GetCharacterDto>(character);
+            }
+            catch(Exception ex)
+            {
+                ServiceResponse.Success = false;
+                ServiceResponse.Message = ex.Message;
+            }
+            
             return ServiceResponse;
         }
     }
