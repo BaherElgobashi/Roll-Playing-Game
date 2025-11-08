@@ -14,11 +14,7 @@ namespace dotnet_rpg.Controllers
     [Route("api/[controller]")]
     public class CharacterController : Controller
     {
-        private static List<Character> characters = new List<Character>
-        {
-            new Character(),
-            new Character{id = 1 , name = "Sam"}
-        };
+        
 
         [HttpGet("GetAll")]
         public ActionResult<List<Character>> GetAll()
